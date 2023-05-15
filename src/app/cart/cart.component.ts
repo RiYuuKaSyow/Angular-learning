@@ -8,7 +8,21 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent {
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private formbuilder: FormBuilder
+  ) {}
 
   items = this.cartService.getItems();
+
+  checkoutform = this.formbuilder.group({
+    name: '',
+    address: '',
+  });
+
+  OnSubmit(): void {
+    this.items = this.cartService.clearCart();
+    console.log(this.checkoutform.value.name);
+    this.checkoutform.reset();
+  }
 }
